@@ -1,0 +1,57 @@
+Design a SQL database schema for a Food Delivery and Review System with the following use cases.
+Use cases
+1. A platform hosting multiple restaurants, each with its unique identifier, menu, pricing, and operating hours
+2. Each restaurant can operate in multiple location with different delivery charges and taxes
+3. Customers from various locations can place Orders containing multiple dishes from multiple restaurants. The Order tracks the Dish details,quantities, price,taxes, 
+delivery charges and delivery status
+4. Customers can also rate and review each Dish from a restaurant and these ratings and reviews are visible to all the Customers.
+5. A loyalty and rewards program for Customers, with tracking of points earned and redeemed.
+6. A system for handling order cancellations, charges and refunds.
+1.create tables
+ - Restaurants
+  -Locations
+  -Customers
+  -Dishes
+  -Orders
+  - Reviews
+  -LoyalityPoints
+  -OrderCancellations
+
+2.add pk and attributes
+ -Restaurants(RestID,uniqueidentifier, menu, pricing, operating hours)
+ -Locations(locationid,locationname,deliverycharge,tax)
+  -Customers(customerid,customername,address)
+  -Dishes(dishid,dishname,price)
+  -Orders(orderid,quantity,delivery status)
+  - Reviews(reviewid,rating)
+  -LoyalityPoints(lpid,earnpo,redpoi)
+  -OrderCancellations(ordecanid,charge,refund)
+
+
+3.relation mapping b/w tables
+   -resta:loca=1:m
+   -di:res=m:m
+   -cus-loc=m:m
+   - ord:dis=m:m
+   -ord:res:m:1
+   -cus:rev=m:1
+   -loy:cus=1:m
+   -ord:cu=m:1
+
+4.add fk and indexes
+  -Restaurants(RestID,uniqueidentifier, menu, pricing, operating hours)
+ -Locations(locationid,locationname,deliverycharge,tax,resid)
+  -Customers(customerid,customername,address,loypoid,revid)
+  -Dishes(dishid,dishname,price)
+  -Orders(orderid,quantity,delivery status,resid)
+  - Reviews(reviewid,rating)
+  -LoyalityPoints(lpid,earnpo,redpoi)
+  -OrderCancellations(ordecanid,charge,refund,custid)
+
+lookuptable:
+  -disrest(disresid,dishid,restid)
+  -custloc(cusid,locid)
+  - orddis(orid,disid)
+
+
+       
