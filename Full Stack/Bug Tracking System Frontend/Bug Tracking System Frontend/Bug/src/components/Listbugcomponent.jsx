@@ -53,8 +53,11 @@ const Listbugcomponent = () => {
     
     return (
         <div className='container'>
-            <h2 className='text-center'>List of Bugs</h2>
-            <button className='btn btn-primary mb-2' onClick={addNewBug}>Add Bug</button>
+            <h2 className='text-center'>Register of Software Bugs and Feature Requests</h2>
+            { isAdmin &&
+                <button className='btn btn-primary mb-2' onClick={addNewBug}>Add Bug</button>
+            }
+            
             <div>
                 <table className='table table-bordered table-striped'>
                     <thead>
@@ -73,11 +76,17 @@ const Listbugcomponent = () => {
                                     <td>{bug.description}</td>
                                     <td>{bug.completed ? 'YES': 'NO'}</td>
                                     <td>
+                                    {
+                                        isAdmin &&
                                         <button className='btn btn-info' onClick={() => updateBug(bug.id)}>Update</button>
-                                        <button className='btn btn-danger' onClick={() => removeBug(bug.id)} style={ { marginLeft: "10px" }} >Delete</button>
-                                        <button className='btn btn-success' onClick={() => markCompleteBug(bug.id)} style={ { marginLeft: "10px" }} >Complete</button>
-                                        <button className='btn btn-info' onClick={() => markInCompleteBug(bug.id)} style={ { marginLeft: "10px" }} >In Complete</button>
-                                    </td>
+                                      } 
+                                      {
+                                        isAdmin && <button className='btn btn-danger' onClick={() => removeBug(bug.id)} style={ { marginLeft: "10px" }} >Delete</button>
+                                       } {
+                                        isAdmin && <button className='btn btn-success' onClick={() => markCompleteBug(bug.id)} style={ { marginLeft: "10px" }} >Complete</button>
+                                         } {
+                                        isAdmin &&  <button className='btn btn-info' onClick={() => markInCompleteBug(bug.id)} style={ { marginLeft: "10px" }} >In Complete</button>
+                                           }  </td>
                                 </tr>
                             )
                         }
