@@ -34,7 +34,7 @@ function App() {
               <Route path='/add-bug' element = {<AuthenticatedRoute><Bugcomponent /> </AuthenticatedRoute> }></Route>
               {/* http://localhost:8082/update-bug/1 */}
               <Route path='/update-bug/:id' element = { <AuthenticatedRoute><Bugcomponent /></AuthenticatedRoute> }></Route>
-              {/* http://localhost:8080/register */}
+              {/* http://localhost:8082/register */}
               <Route path='/register' element = { <RegisterComponent />}></Route>
                {/* http://localhost:8082/login */}
                <Route path='/login' element = { <LoginComponent /> }></Route>

@@ -3,17 +3,16 @@ import { getToken } from "./AuthService";
 
 const BASE_REST_API_URL = 'http://localhost:8082/api/bugs';
 
+axios.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 
-// Add a request interceptor
-axios.interceptors.request.use(function (config) {
-    
-    config.headers['Authorization'] = getToken();
-
-    return config;
-  }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  });
 
 export const getAllBugs = () => axios.get(BASE_REST_API_URL)
 

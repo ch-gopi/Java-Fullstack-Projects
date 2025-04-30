@@ -25,6 +25,7 @@ const LoginComponent = () => {
 
             saveLoggedInUser(username, role);
             navigator("/bugs")
+
             window.location.reload(false);
         }).catch(error => {
             console.error(error);

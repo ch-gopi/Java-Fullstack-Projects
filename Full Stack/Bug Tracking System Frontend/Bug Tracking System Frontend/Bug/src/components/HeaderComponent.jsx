@@ -11,7 +11,7 @@ const HeaderComponent = () => {
 
     function handleLogout(){
         logout();
-        navigator('/login')
+        navigator('/login');
     }
 
   return (

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { completeBug, deleteBug, getAllBugs, inCompleteBug } from '../services/Bugservice'
 import { useNavigate } from 'react-router-dom'
+import { isAdminUser } from '../services/AuthService'
 
 const Listbugcomponent = () => {
     const [bugs, setBugs] = useState([])
     const navigate = useNavigate()
+    const isAdmin = isAdminUser();
     useEffect(() => {
         listBugs();
     }, [])
 
     function listBugs(){
         getAllBugs().then((response) => {
-            setBugs(response.data);
+            setBugs(response.data );
         }).catch(error => {
             console.error(error);
         })
