@@ -44,6 +44,15 @@ const RegisterComponent = () => {
                     case 500:
                         setMessage('❌ Server error. Try again later.');
                         break;
+                    case 406:
+                        setMessage('❌ @ Required in email and Password as alphanumeric.');
+                        break;
+                    case 412:
+                         setMessage('❌ @ Required in email.');
+                        break;
+                    case 410:
+                        setMessage('❌ Your password must be at least 8 characters long and include 1 uppercase,1 lowercase,1 number, and 1 special character.');
+                        break;
                     default:
                         setMessage('❌ Something went wrong. Please try again.');
                 }
