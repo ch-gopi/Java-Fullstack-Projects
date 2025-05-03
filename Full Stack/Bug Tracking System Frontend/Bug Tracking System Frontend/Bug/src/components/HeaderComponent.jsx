@@ -19,10 +19,14 @@ const HeaderComponent = () => {
         <header>
             <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
                 <div>
-                    <a href='http://localhost:3000' className='navbar-brand'>
-                          Bug Tracking Application
-                    </a>
+                <NavLink to="/home" className="nav-link">
+             <h5 style={{color: 'red', marginRight: '25px' , marginTop: '7px' }} className="text-center text-light" > Bug Tracking Application</h5>  
+          
+                </NavLink>
+            
                 </div>
+                
+                
                 <div className='collapse navbar-collapse'>
                     <ul className='navbar-nav'>
 
@@ -30,6 +34,7 @@ const HeaderComponent = () => {
                             isAuth &&                         
                             <li className='nav-item'>
                             <NavLink to="/bugs" className="nav-link">Bugs</NavLink>
+                          
                         </li>
                         }
 

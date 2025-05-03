@@ -1,13 +1,11 @@
 import React from 'react'
 
 const FooterComponent = () => {
-  return (
-    <div>
-        <footer className='footer'>
-            <p className='text-center'>Copyrights reserved By @Gopi.Ch </p>
-        </footer>
-    </div>
-  )
-}
+    return (
+        <div style={{ position: 'fixed', bottom: 0, width: '100%', height: '50px', backgroundColor: 'black', textAlign: 'center', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p>Copyrights reserved By @Gopi.Ch</p>
+        </div>
+    );
+};
 
 export default FooterComponent
