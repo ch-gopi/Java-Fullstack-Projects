@@ -5,6 +5,7 @@ import Bug.Tracking.System.Application.Bug.Tracking.Application.dto.JwtAuthRespo
 import Bug.Tracking.System.Application.Bug.Tracking.Application.dto.LoginDto;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.dto.RegisterDto;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterDto registerDto){
         String response = authService.register(registerDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
