@@ -22,10 +22,10 @@ public class RegisterDto {
 
     @NotBlank(message = "Password cannot be blank")
     @Pattern(
-          
+
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w])[A-Za-z\\d\\W]{8,}$",
 
-    message = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
+            message = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
     )
     private String password;
 }

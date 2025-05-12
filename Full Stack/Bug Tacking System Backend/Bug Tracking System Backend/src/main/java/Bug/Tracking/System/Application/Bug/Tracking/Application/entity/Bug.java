@@ -43,5 +43,8 @@ public class Bug {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "sprint_id")
+    private Sprint sprint;
 
 }

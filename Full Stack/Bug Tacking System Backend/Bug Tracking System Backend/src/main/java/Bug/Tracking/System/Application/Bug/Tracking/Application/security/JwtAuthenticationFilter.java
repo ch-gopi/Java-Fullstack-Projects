@@ -1,5 +1,6 @@
 package Bug.Tracking.System.Application.Bug.Tracking.Application.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,23 +38,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getTokenFromRequest(request);
 
-
-        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
+try{
+        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
 
             String username = jwtTokenProvider.getUsername(token);
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-              userDetails,
-              null,
-              userDetails.getAuthorities()
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
             );
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }
+        }    } catch (ExpiredJwtException e) {
+                 logger.warn("JWT Token has expired. Proceeding with anonymous authentication.");
+}
 
         filterChain.doFilter(request, response);
     }

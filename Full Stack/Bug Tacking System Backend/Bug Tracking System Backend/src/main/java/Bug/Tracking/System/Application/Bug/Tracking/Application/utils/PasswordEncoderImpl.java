@@ -1,7 +1,10 @@
 package Bug.Tracking.System.Application.Bug.Tracking.Application.utils;
 
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordEncoderImpl {
 
@@ -11,5 +14,9 @@ public class PasswordEncoderImpl {
         System.out.println(passwordEncoder.encode("gopi"));
 
         System.out.println(passwordEncoder.encode("admin"));
+
+
     }
+
+
 }
