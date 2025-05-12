@@ -81,7 +81,7 @@ const HomeComponent = () => {
                 <Link to="/contact" style={buttonStyle}>Contact</Link>
             </div>
             </div>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '50px', marginTop: '-215px' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '50px', marginTop: '-215px',marginRight: '140px'}}>
             <div className="row" >
                 <div className="col-md-6">
                     <h4>Total Bugs: {analytics.totalBugs || 0}</h4>

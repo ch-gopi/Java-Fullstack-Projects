@@ -13,29 +13,20 @@ import ContactComponent from './components/ContactComponent'
 import FeaturesComponent from './components/FeaturesComponent'
 import ForgotpasswordComponent from './components/ForgotpasswordComponent'
 import AboutComponent from './components/AboutComponent'
-
-
-
-
-
-
+import { NotificationProvider } from './components/NotificationContext' // Import Notification Provider
 
 function App() {
+
   function AuthenticatedRoute({children}){
-
     const isAuth = isUserLoggedIn();
-
-    if(isAuth) {
-      return children;
-    }
-
-    return <Navigate to="/" />
-
+    return isAuth ? children : <Navigate to="/" />;
   }
+
   return (
     <>
-    <BrowserRouter> 
-        <HeaderComponent />
+    <NotificationProvider> {/* Wrap app inside NotificationProvider */}
+      <BrowserRouter> 
+        <HeaderComponent /> {/* This can now access notifications */}
           <Routes>
              <Route path="/home" element={<HomeComponent />} />
              <Route path="/features" element={<FeaturesComponent />} />
@@ -43,30 +34,18 @@ function App() {
              <Route path="/about" element={<AboutComponent />} />
              <Route path="/forgot-password" element={<ForgotpasswordComponent />} />
 
-        
-         
-              {/* http://localhost:3000 */}
-              <Route path='/' element = { <HomeComponent /> }></Route>
-               {/* http://localhost:8082/bugs */}
-              <Route path='/bugs' element = { <AuthenticatedRoute><Listbugcomponent /> </AuthenticatedRoute>}></Route>
-              {/* http://localhost:8082/add-bug */}
-              <Route path='/add-bug' element = {<AuthenticatedRoute><Bugcomponent /> </AuthenticatedRoute> }></Route>
-              {/* http://localhost:8082/update-bug/1 */}
-              <Route path='/update-bug/:id' element = { <AuthenticatedRoute><Bugcomponent /></AuthenticatedRoute> }></Route>
-              {/* http://localhost:8082/register */}
-              <Route path='/register' element = { <RegisterComponent />}></Route>
-               {/* http://localhost:8082/login */}
-               <Route path='/login' element = { <LoginComponent /> }></Route>
-               
-              
-
-
-               
+              <Route path='/' element={<HomeComponent />} />
+              <Route path='/bugs' element={<AuthenticatedRoute><Listbugcomponent /></AuthenticatedRoute>} />
+              <Route path='/add-bug' element={<AuthenticatedRoute><Bugcomponent /></AuthenticatedRoute>} />
+              <Route path='/update-bug/:id' element={<AuthenticatedRoute><Bugcomponent /></AuthenticatedRoute>} />
+              <Route path='/register' element={<RegisterComponent />} />
+              <Route path='/login' element={<LoginComponent />} />
           </Routes>
         <FooterComponent />
-        </BrowserRouter>
+      </BrowserRouter>
+    </NotificationProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

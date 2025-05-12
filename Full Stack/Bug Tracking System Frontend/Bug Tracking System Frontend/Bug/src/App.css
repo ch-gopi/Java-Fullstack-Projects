@@ -1,0 +1,14 @@
+.notification-container {
+    max-width: 300px; /* Adjust width as needed */
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.notification-text {
+    font-size: 14px;
+    padding: 8px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    margin-bottom: 5px;
+}
+
