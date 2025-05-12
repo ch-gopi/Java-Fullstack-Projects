@@ -40,6 +40,8 @@ public class Bugcontroller {
             emailService.sendEmail(bugdto.getUserEmail(), "Bug Assigned", emailBody);
         } catch (MessagingException e) {
             logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
+        }  catch (Exception e) {
+            logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
         }
 
         return new ResponseEntity<>(savedBug, HttpStatus.CREATED);
