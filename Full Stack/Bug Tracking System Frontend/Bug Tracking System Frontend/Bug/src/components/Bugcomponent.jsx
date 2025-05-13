@@ -61,12 +61,13 @@ const BugComponent = () => {
      if (id) {
     updateBug(id, bug)
         .then(() => {
-            addNotification(`Bug updated successfully! Email sent to ${selectedUserObject.email}`, selectedUserObject.username); // Send notification
+            addNotification(` Email sent to ${selectedUserObject.email}`, selectedUserObject.username); // Sending notification
             navigate('/bugs'); 
         })
         .catch(error => {
             console.error("Error updating bug:", error);
-            addNotification(`Failed to update bug. Could not send email to ${selectedUserObject.email}`, selectedUserObject.username);
+            addNotification(`Could not send email to ${selectedUserObject.email}`, selectedUserObject.username);
+           navigate('/bugs'); 
         });
 } else {
     saveBug(bug)
