@@ -83,7 +83,7 @@ const BugComponent = () => {
     }
 
     return (
-        <div className='container' style={{ marginLeft: "7%", maxWidth: "85%", overflowY: "auto", height: "100vh", marginBottom: "50px"}}>
+        <div className='container' style={{ marginLeft: "7%", maxWidth: "85%", overflowY: "auto", height: "100vh", marginBottom: "50px",marginTop:"10px"}}>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3' style={{ paddingBottom: "20px" }}>
                     <h2 className='text-center'>{id ? 'Update Bug' : 'Add Bug'}</h2>
