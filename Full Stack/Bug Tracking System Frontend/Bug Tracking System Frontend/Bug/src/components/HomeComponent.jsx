@@ -109,7 +109,7 @@ const HomeComponent = () => {
                                     },
                                     formatter: (value, context) => {
                                         const total = context.chart.data.datasets[0].data.reduce((sum, num) => sum + num, 0);
-                                        const percentage = ((value / total) * 100).toFixed(1) + '%'; // Convert to percentage
+                                        const percentage = ((value / total) * 100).toFixed(1) + '%';
                                         return percentage;
                                     }
                                 }
@@ -124,39 +124,38 @@ const HomeComponent = () => {
 
 </div>
 
- <div style={{ marginTop: '50px' }}>
- <div>   
- <div>
- <div style={{
-    marginTop: '50px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center', // Ensures centering
-    justifyContent: 'center',
-    padding: '40px',
-    borderRadius: '15px',
-    maxWidth: '1700px',
-    background: 'linear-gradient(to right, #007bff, #6610f2)', // Modern gradient effect
-    color: 'white',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
-    textAlign: 'center'
-}}>
-    <h2 style={{ fontSize: '28px', fontWeight: 'bold' }}>✨ Why Choose Us?</h2>
-    <p style={{ fontSize: '18px', lineHeight: '1.5', maxWidth: '600px', margin: '0 auto' }}>
-        Our Bug Tracking Application is designed to **streamline** your development process. 
-        With features like **real-time tracking**, **automated notifications**, and **comprehensive analytics**, 
-        you can focus on what matters most—building great software 🚀.
-    </p>
-</div>
-
-</div>  
- <FeaturesComponent />
-
- 
- <AboutComponent /> 
- <ContactComponent />
+<div style={{ marginTop: '50px', width: '100vw' }}>  
+  <div>
+    <div>
+      <div style={{
+          marginTop: '50px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '40px',
+          borderRadius: '15px',
+          width: '100vw',  
+          maxWidth: 'none', 
+          background: 'linear-gradient(to right, #007bff, #6610f2)', 
+          color: 'white',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+          textAlign: 'center'
+      }}>
+        <h2 style={{ fontSize: '28px', fontWeight: 'bold' }}>✨ Why Choose Us?</h2>
+        <p style={{ fontSize: '18px', lineHeight: '1.5', maxWidth: '600px', margin: '0 auto' }}>
+            Our Bug Tracking Application is designed to **streamline** your development process. 
+            With features like **real-time tracking**, **automated notifications**, and **comprehensive analytics**, 
+            you can focus on what matters most—building great software 🚀.
+        </p>
+      </div>
+    </div>  
+    <FeaturesComponent />
+    <AboutComponent /> 
+    <ContactComponent />
   </div>
 </div>
+
         </div>
     );
 };
