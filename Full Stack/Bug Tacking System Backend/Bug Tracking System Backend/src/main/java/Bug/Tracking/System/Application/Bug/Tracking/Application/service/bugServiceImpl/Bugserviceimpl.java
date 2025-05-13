@@ -19,10 +19,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -76,9 +73,18 @@ public class Bugserviceimpl implements Bugservice {
 
     @Override
     public Page<Bugdto> getAllBugs(Pageable pageable) {
-        Page<Bug> bugs = bugrepository.findAll(pageable);
-        return bugs.map(bug -> modelMapper.map(bug, Bugdto.class));
+        // Fetch all bugs and sort by 'fromDate'
+        List<Bug> sortedBugs = bugrepository.findAll(Sort.by(Sort.Direction.DESC, "fromDate"));
+
+        // Apply pagination after sorting
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), sortedBugs.size());
+        List<Bug> paginatedBugs = sortedBugs.subList(start, end);
+
+        PageImpl<Bug> sortedPage = new PageImpl<>(paginatedBugs, pageable, sortedBugs.size());
+        return sortedPage.map(bug -> modelMapper.map(bug, Bugdto.class));
     }
+
 
     @Override
     public Bugdto updateBug(Bugdto bugdto, Long id) {

@@ -16,5 +16,6 @@ public interface Bugrepository extends JpaRepository<Bug, Long> {
     long countByCompleted(boolean b);
     Page<Bug> findAll(Pageable pageable);
 
+
     List<Bug> findBySprintId(Long sprintId);
 }

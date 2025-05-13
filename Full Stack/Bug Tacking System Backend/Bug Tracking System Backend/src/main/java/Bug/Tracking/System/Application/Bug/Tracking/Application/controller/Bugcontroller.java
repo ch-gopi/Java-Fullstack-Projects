@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class Bugcontroller {
             emailService.sendEmail(bugdto.getUserEmail(), "Bug Assigned", emailBody);
         } catch (MessagingException e) {
             logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
-        }  catch (Exception e) {
+        } catch (Exception e) {
             logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
         }
 
@@ -58,10 +59,11 @@ public class Bugcontroller {
     @GetMapping
     public ResponseEntity<Page<Bugdto>> getAllBugs(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "8") int size
+            @RequestParam(defaultValue = "8") int size,
+            @RequestParam(defaultValue = "DESC") String sortDirection
     ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Bugdto> bugs = bugservice.getAllBugs(pageable); // Pass pagination info
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "fromDate"));
+        Page<Bugdto> bugs = bugservice.getAllBugs(pageable); // Fetch sorted bugs
 
         return ResponseEntity.ok(bugs);
     }
@@ -87,7 +89,7 @@ public class Bugcontroller {
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteBug(@PathVariable("id") Long bugid) {
         bugservice.deleteBug(bugid);
-        return ResponseEntity.ok("Bug deleted sucessfully");
+        return ResponseEntity.ok("Bug deleted successfully");
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
