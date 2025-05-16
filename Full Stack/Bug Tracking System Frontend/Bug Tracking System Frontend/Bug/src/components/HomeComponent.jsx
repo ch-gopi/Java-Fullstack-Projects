@@ -12,23 +12,31 @@ import AboutComponent from '../components/AboutComponent'
 
 const HomeComponent = () => {
     const [analytics, setAnalytics] = useState({});
+    const [bgImageLoaded, setBgImageLoaded] = useState(false);
 
-   useEffect(() => {
-     const fetchAnalytics = async (retries = 3) => { 
-        try { const response = await getBugAnalytics(); 
+  
+useEffect(() => {
+    const fetchAnalytics = async (retries = 3) => { 
+        try {
+            const response = await getBugAnalytics(); 
             setAnalytics(response.data); 
-        } catch (error) 
-   { if (retries > 0) 
-    { console.warn("Retrying fetch...");
-         setTimeout(() => fetchAnalytics(retries - 1), 1000); 
-        } else { console.error("Failed to fetch analytics:", error); } } }; 
-        fetchAnalytics(); 
-       
-         
-        const img = new Image();
-         img.src = backgroundImage;
-          img.onload = () => setBgImageLoaded(true); }, []);
-    
+        } catch (error) { 
+            if (retries > 0) { 
+                console.warn("Retrying fetch...");
+                setTimeout(() => fetchAnalytics(retries - 1), 1000); 
+            } else { 
+                console.error("Failed to fetch analytics:", error);
+            } 
+        } 
+    }; 
+
+    fetchAnalytics(); 
+
+    // Preload background image
+    const img = new Image();
+    img.src = backgroundImage;
+    img.onload = () => setBgImageLoaded(true); // Set state when image is loaded
+}, []);
     const homeStyle = {
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',

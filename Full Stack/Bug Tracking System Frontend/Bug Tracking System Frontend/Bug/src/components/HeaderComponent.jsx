@@ -42,16 +42,20 @@ const HeaderComponent = () => {
             </ul>
           </div>
 
-          {/* Notification Bell */}
+          {/* Notification Bell - Always Visible */}
           {isAuth && (
-            <div className="ml-auto" style={{ marginRight: "70px" }}>
-              <button className="btn btn-dark" style= {{ fontSize: '2p5x' }}>
+            <div
+              className="ml-auto"
+              style={{ marginRight: "70px", position: "relative" }}
+            >
+              <button className="btn btn-dark">
                 🔔 {notifications.length > 0 ? `(${notifications.length})` : ""}
               </button>
+
+              {/* Dropdown Only When Notifications Exist */}
               {notifications.length > 0 && (
                 <ul className="dropdown-menu show">
                   <div className="notification-container">
-                    {/* Show only the last 4 notifications */}
                     {notifications.slice(-4).map((notif, index) => (
                       <p key={index} className="notification-text">
                         {notif}

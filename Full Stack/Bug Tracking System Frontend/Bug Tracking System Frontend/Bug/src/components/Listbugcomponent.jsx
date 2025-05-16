@@ -167,8 +167,9 @@ const ListBugComponent = () => {
                             <td>
                                 {isAdmin && <button className='btn btn-info btn-sm' onClick={() => updateBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>Update</button>}
                                 {isAdmin && <button className='btn btn-danger btn-sm' onClick={() => removeBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>Delete</button>}
-                                <button className='btn btn-success btn-sm' onClick={() => markCompleteBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>Complete</button>
-                                <button className='btn btn-secondary btn-sm' onClick={() => markInCompleteBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>In Complete</button>
+                                <button className='btn btn-success btn-sm' onClick={() => markCompleteBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>Resolved</button>
+                                <button className='btn btn-secondary btn-sm' onClick={() => markInCompleteBug(bug.id)} style={{ marginLeft: "10px" ,fontSize: "11px"}}>In Progress</button>
+                                
                             </td>
                         </tr>
                     ))}

@@ -7,15 +7,15 @@ export const NotificationProvider = ({ children }) => {
 
   const addNotification = (message, username) => {
     try {
-      setNotifications((prev) => [...prev, `${message} (User: ${username})`]);
+      setNotifications((prev) => [...prev, `${message} (L3 Team: ${username})`]);
     } catch (error) {
       console.error("Error adding notification:", error);
     }
 
-    // Auto-clear notifications after 2 seconds
+    // Auto-clearing notifications after 2 seconds
     setTimeout(() => {
-      setNotifications([]); // Reset notifications array
-    }, 4000);
+      setNotifications([]); // Reseting notifications array
+    }, 15000);
   };
 
   const clearNotifications = () => {

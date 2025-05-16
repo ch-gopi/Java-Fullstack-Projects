@@ -77,7 +77,8 @@ const BugComponent = () => {
         })
         .catch(error => {
             console.error("Error saving bug:", error);
-            addNotification(`Failed to add bug. No email sent to ${selectedUserObject.email}`, selectedUserObject.username);
+            addNotification(`No email sent to ${selectedUserObject.email}`, selectedUserObject.username);
+            navigate('/bugs'); 
         });
 }
 
