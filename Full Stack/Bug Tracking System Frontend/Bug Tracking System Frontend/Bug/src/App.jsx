@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-    <NotificationProvider> {/* Wraping app inside NotificationProvider */}
+    <NotificationProvider> {/* Wrap app inside NotificationProvider */}
       <BrowserRouter> 
         <HeaderComponent /> {/* This can now access notifications */}
           <Routes>

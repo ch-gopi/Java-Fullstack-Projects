@@ -1,5 +1,5 @@
 .notification-container {
-    max-width: 300px;
+    max-width: 300px; /* Adjust width as needed */
     word-wrap: break-word;
     white-space: normal;
 }

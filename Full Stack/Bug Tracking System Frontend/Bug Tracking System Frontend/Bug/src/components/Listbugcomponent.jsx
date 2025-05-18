@@ -3,6 +3,7 @@ import { completeBug, deleteBug, getAllBugs, inCompleteBug } from '../services/B
 import { getAllUsers, getAllSprints } from '../services/Bugservice'; 
 import { useNavigate } from 'react-router-dom';
 import { isAdminUser } from '../services/AuthService';
+import ExportReport from '../components/ExportReport';
 
 const ListBugComponent = () => {
     const [bugs, setBugs] = useState([]);
@@ -134,7 +135,8 @@ const ListBugComponent = () => {
                 <button  className="btn btn-info" onClick={searchBugs}>Search</button>
                
                <button className="btn btn-light " onClick={clearFilters}>Clear</button>
-
+               {/* Export Buttons */}
+    <ExportReport filters={{ searchTerm, selectedSeverity, selectedStatus, selectedUser, selectedSprint, fromDate, toDate }} />
             </div>
 
             {/* Bug List */}
