@@ -48,6 +48,11 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/api/bugs/analytics").permitAll();
                     authorize.requestMatchers("/error").permitAll();
+                    authorize.requestMatchers("/favicon.ico").permitAll();
+                    //  Allow report exports without authentication
+                    authorize.requestMatchers(HttpMethod.GET, "/api/reports/export/csv").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET, "/api/reports/export/pdf").permitAll();
+
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 

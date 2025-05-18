@@ -74,7 +74,7 @@ public class Bugcontroller {
         Bugdto updatedBug = bugservice.updateBug(bugdto, bugid);
 
         // Send Email Notification on Status Update
-        String emailBody = "Bug status updated: " + (bugdto.isCompleted() ? "Completed" : "Not Completed");
+        String emailBody = "Bug status updated: " +bugdto.getTitle() +" is "+ (bugdto.isCompleted() ? "Completed" : "Not Completed");
         try {
             emailService.sendEmail(bugdto.getUserEmail(), "Bug Status Updated", emailBody);
         } catch (MessagingException e) {

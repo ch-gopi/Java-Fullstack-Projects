@@ -22,11 +22,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -161,4 +159,43 @@ public class Bugserviceimpl implements Bugservice {
 
         return analytics;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Bugdto> getAllFilteredBugs(Map<String, String> filters) {
+        Specification<Bug> spec = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // ✅ Apply filters dynamically based on the frontend input
+            if (filters.containsKey("searchTerm") && !filters.get("searchTerm").isEmpty()) {
+                predicates.add(criteriaBuilder.like(root.get("title"), "%" + filters.get("searchTerm") + "%"));
+            }
+            if (filters.containsKey("selectedSeverity") && !filters.get("selectedSeverity").isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("severity"), Severity.valueOf(filters.get("selectedSeverity").toUpperCase())));
+            }
+            if (filters.containsKey("selectedStatus") && !filters.get("selectedStatus").isEmpty()) {
+                boolean isCompleted = filters.get("selectedStatus").equalsIgnoreCase("Completed");
+                predicates.add(criteriaBuilder.equal(root.get("completed"), isCompleted));
+            }
+            if (filters.containsKey("selectedUser") && !filters.get("selectedUser").isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("user").get("id"), Long.parseLong(filters.get("selectedUser"))));
+            }
+            if (filters.containsKey("selectedSprint") && !filters.get("selectedSprint").isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("sprint").get("id"), Long.parseLong(filters.get("selectedSprint"))));
+            }
+            if (filters.containsKey("fromDate") && !filters.get("fromDate").isEmpty()) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("fromDate"), java.sql.Date.valueOf(filters.get("fromDate"))));
+            }
+            if (filters.containsKey("toDate") && !filters.get("toDate").isEmpty()) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("toDate"), java.sql.Date.valueOf(filters.get("toDate"))));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
+        List<Bug> filteredBugs = bugrepository.findAll(spec);
+        return filteredBugs.stream().map(bug -> modelMapper.map(bug, Bugdto.class)).collect(Collectors.toList());
+    }
+
+
 }

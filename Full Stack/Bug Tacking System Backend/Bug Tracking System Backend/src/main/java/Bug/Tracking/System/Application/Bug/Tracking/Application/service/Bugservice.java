@@ -17,4 +17,5 @@ public interface Bugservice {
     Bugdto completeBug(Long id);
     Bugdto inCompleteBug(Long id);
     Map<String, Object> generateAnalytics();
+    List<Bugdto> getAllFilteredBugs(Map<String, String> filters);
 }
