@@ -1,7 +1,7 @@
 const ExportReport = ({ filters }) => {
   const openReport = (url) => {
     const queryParams = new URLSearchParams(filters).toString();
-    window.open(`http://localhost:8082/api/reports/${url}?${queryParams}`, "_blank"); // ✅ Opens file in new tab
+    window.open(`http://localhost:8082/api/reports/${url}?${queryParams}`, "_blank"); 
   };
 
   return (
