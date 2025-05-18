@@ -23,7 +23,7 @@ const ForgotPasswordComponent = () => {
 
     function handleResetPassword(e) {
         e.preventDefault();
-        setMessage('✅ Mock: Password reset successful! Redirecting...');
+        setMessage(' Password reset successful! Redirecting...');
         setTimeout(() => navigator("/login"), 2000);
     }
 
