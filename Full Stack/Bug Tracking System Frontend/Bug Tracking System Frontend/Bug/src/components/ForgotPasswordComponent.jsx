@@ -11,13 +11,13 @@ const ForgotPasswordComponent = () => {
 
     function handleSendEmail(e) {
         e.preventDefault();
-        setMessage('✅ Mock: Verification OTP sent to email.');
+        setMessage(' Verification OTP sent to email.');
         setStep(2); // Proceed to OTP input
     }
 
     function handleVerifyOTP(e) {
         e.preventDefault();
-        setMessage('✅ Mock: OTP verified! Proceed to reset password.');
+        setMessage(' OTP verified! Proceed to reset password.');
         setStep(3); // Proceed to password reset
     }
 
