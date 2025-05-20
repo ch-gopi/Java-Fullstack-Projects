@@ -11,19 +11,19 @@ const ForgotPasswordComponent = () => {
 
     function handleSendEmail(e) {
         e.preventDefault();
-        setMessage(' Verification OTP sent to email.');
-        setStep(2); // Proceed to OTP input
+        setMessage('✅ Mock: Verification OTP sent to email.');
+        setStep(2); 
     }
 
     function handleVerifyOTP(e) {
         e.preventDefault();
-        setMessage(' OTP verified! Proceed to reset password.');
-        setStep(3); // Proceed to password reset
+        setMessage('✅ Mock: OTP verified! Proceed to reset password.');
+        setStep(3); 
     }
 
     function handleResetPassword(e) {
         e.preventDefault();
-        setMessage(' Password reset successful! Redirecting...');
+        setMessage('✅ Mock: Password reset successful! Redirecting...');
         setTimeout(() => navigator("/login"), 2000);
     }
 
@@ -47,7 +47,7 @@ const ForgotPasswordComponent = () => {
                 <h2 style={{ color: 'white' }}>Forgot Password</h2>
                 {message && <p style={{ color: 'white', fontWeight: 'bold' }}>{message}</p>}
 
-                {/* Step 1: Enter Email */}
+                {/* Step 1: Entering Email */}
                 {step === 1 && (
                     <form onSubmit={handleSendEmail}>
                         <input 
@@ -78,7 +78,7 @@ const ForgotPasswordComponent = () => {
                     </form>
                 )}
 
-                {/* Step 2: Verify OTP */}
+              
                 {step === 2 && (
                     <form onSubmit={handleVerifyOTP}>
                         <input 
@@ -109,7 +109,7 @@ const ForgotPasswordComponent = () => {
                     </form>
                 )}
 
-                {/* Step 3: Reset Password */}
+               
                 {step === 3 && (
                     <form onSubmit={handleResetPassword}>
                         <input 

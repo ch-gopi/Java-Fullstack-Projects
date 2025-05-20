@@ -110,7 +110,7 @@ const LoginComponent = () => {
             Submit
           </button>
         </form>
-        {/* Forgot Password Section */}
+       
         <div style={{ marginTop: "15px" }}>
           <a
             href="/forgot-password"

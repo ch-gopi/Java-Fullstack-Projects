@@ -32,7 +32,7 @@ useEffect(() => {
 
     fetchAnalytics(); 
 
-    // Preload background image
+  
     const img = new Image();
     img.src = backgroundImage;
     img.onload = () => setBgImageLoaded(true); // Set state when image is loaded

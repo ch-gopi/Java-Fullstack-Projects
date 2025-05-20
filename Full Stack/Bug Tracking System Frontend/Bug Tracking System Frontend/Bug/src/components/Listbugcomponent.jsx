@@ -34,7 +34,7 @@ const ListBugComponent = () => {
         console.log("Bug List Data:", response.data);
         setBugs(response.data.content); // Access paginated content
           setFilteredBugs(response.data.content);
-        setCurrentPage(page); // Update page number
+        setCurrentPage(page); 
     }).catch(error => console.error(error));
 }
 
@@ -93,7 +93,7 @@ const ListBugComponent = () => {
 
             {isAdmin && <button className='btn btn-primary mb-2' onClick={addNewBug}>Add Bug</button>}
 
-            {/* Filters */}
+           
             <div className="d-flex gap-3 mb-3">
                 <input 
                     type="text" 
@@ -135,11 +135,10 @@ const ListBugComponent = () => {
                 <button  className="btn btn-info" onClick={searchBugs}>Search</button>
                
                <button className="btn btn-light " onClick={clearFilters}>Clear</button>
-               {/* Export Buttons */}
+              
     <ExportReport filters={{ searchTerm, selectedSeverity, selectedStatus, selectedUser, selectedSprint, fromDate, toDate }} />
             </div>
 
-            {/* Bug List */}
             <table className='table table-bordered table-striped'>
                 <thead>
                     <tr>
@@ -178,7 +177,7 @@ const ListBugComponent = () => {
                 </tbody>
             </table>
 
-            {/* Pagination Controls */}
+          
             <div className="d-flex justify-content-end">
                <button 
                     className="btn btn-primary mb-5" 

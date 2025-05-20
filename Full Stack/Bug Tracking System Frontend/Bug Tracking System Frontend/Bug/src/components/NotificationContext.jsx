@@ -12,7 +12,7 @@ export const NotificationProvider = ({ children }) => {
       console.error("Error adding notification:", error);
     }
 
-    // Auto-clearing notifications after 2 seconds
+   
     setTimeout(() => {
       setNotifications([]); // Reseting notifications array
     }, 15000);
@@ -21,7 +21,7 @@ export const NotificationProvider = ({ children }) => {
   const clearNotifications = () => {
     setTimeout(() => {
       setNotifications([]);
-    }, 2000); // Clears after 2 seconds (2000ms)
+    }, 2000); 
   };
 
   return (

@@ -42,7 +42,7 @@ const HeaderComponent = () => {
             </ul>
           </div>
 
-          {/* Notification Bell - Always Visible */}
+         
           {isAuth && (
             <div
               className="ml-auto"
@@ -52,7 +52,7 @@ const HeaderComponent = () => {
                 🔔 {notifications.length > 0 ? `(${notifications.length})` : ""}
               </button>
 
-              {/* Dropdown Only When Notifications Exist */}
+           
               {notifications.length > 0 && (
                 <ul className="dropdown-menu show">
                   <div className="notification-container">

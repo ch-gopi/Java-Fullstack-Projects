@@ -13,7 +13,7 @@ const RegisterComponent = () => {
 
   async function handleRegistrationForm(e) {
     e.preventDefault();
-    setMessage(""); // Reset message
+    setMessage(""); 
     if (!name || !username || !email || !password) {
       setMessage("⚠️ All fields are required!");
       return;
