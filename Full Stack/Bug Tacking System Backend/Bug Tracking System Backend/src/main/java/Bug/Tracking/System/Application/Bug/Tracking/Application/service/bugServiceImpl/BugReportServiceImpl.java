@@ -48,14 +48,14 @@ public class BugReportServiceImpl {
                 ? bugservice.getAllBugs(Pageable.unpaged()).getContent()
                 : bugservice.getAllFilteredBugs(filters);
         List<Sprint> sprint = sprintRepository.findAll();
-        Map<Long,String> hm=new HashMap<>();
-        Set<Long> hs=new HashSet<>();
-        for(Bugdto bug:bugList){
+        Map<Long, String> hm = new HashMap<>();
+        Set<Long> hs = new HashSet<>();
+        for (Bugdto bug : bugList) {
             hs.add(bug.getSprintId());
         }
-        for(Sprint s:sprint){
-            if( hs.contains(s.getId())){
-                hm.put(s.getId(),s.getSprintName());
+        for (Sprint s : sprint) {
+            if (hs.contains(s.getId())) {
+                hm.put(s.getId(), s.getSprintName());
             }
         }
 
@@ -63,20 +63,20 @@ public class BugReportServiceImpl {
             writer.append("Title,Description,Status,Severity,Assigned To,From Date,To Date,Sprint\n");
 
             for (Bugdto bug : bugList) {
-                writer.append("\"").append(bug.getTitle()).append("\"").append(",");  
-                writer.append("\"").append(bug.getDescription()).append("\"").append(",");  
+                writer.append("\"").append(bug.getTitle()).append("\"").append(",");
+                writer.append("\"").append(bug.getDescription()).append("\"").append(",");
                 writer.append(bug.isCompleted() ? "Completed" : "Pending").append(",");
                 writer.append(bug.getSeverity().toString()).append(",");
                 writer.append(bug.getUserEmail()).append(",");
                 writer.append(bug.getFromDate().toString()).append(",");
                 writer.append(bug.getToDate().toString()).append(",");
-                writer.append(bug.getSprintId() != null ?  hm.get(bug.getSprintId()) : "N/A").append("\n");
+                writer.append(bug.getSprintId() != null ? hm.get(bug.getSprintId()) : "N/A").append("\n");
             }
 
             writer.flush();
             return filePath;
         } catch (IOException e) {
-            return null; 
+            throw new RuntimeException("Error while generating PDF report", e);
         }
     }
 
@@ -85,21 +85,21 @@ public class BugReportServiceImpl {
         String reportDirectory = System.getProperty("user.dir") + "/reports";
         File reportsDir = new File(reportDirectory);
         if (!reportsDir.exists()) {
-            reportsDir.mkdir(); 
+            reportsDir.mkdir();
         }
 
         List<Bugdto> bugList = (filters == null || filters.isEmpty())
                 ? bugservice.getAllBugs(Pageable.unpaged()).getContent()
                 : bugservice.getAllFilteredBugs(filters);
         List<Sprint> sprint = sprintRepository.findAll();
-        Map<Long,String> hm=new HashMap<>();
-        Set<Long> hs=new HashSet<>();
-        for(Bugdto bug:bugList){
+        Map<Long, String> hm = new HashMap<>();
+        Set<Long> hs = new HashSet<>();
+        for (Bugdto bug : bugList) {
             hs.add(bug.getSprintId());
         }
-        for(Sprint s:sprint){
-            if( hs.contains(s.getId())){
-                hm.put(s.getId(),s.getSprintName());
+        for (Sprint s : sprint) {
+            if (hs.contains(s.getId())) {
+                hm.put(s.getId(), s.getSprintName());
             }
         }
         String filePath = reportDirectory + "/bugs_report.pdf";
@@ -109,23 +109,19 @@ public class BugReportServiceImpl {
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
 
-            // ✅ Set custom margins (top: 20, right: 40, bottom: 20, left: 20)
             document.setMargins(20, 35, 20, 25);
 
-            // ✅ Add Title
+
             document.add(new Paragraph("Bugs Tracking Report").setBold().setFontSize(16).setTextAlignment(TextAlignment.CENTER));
 
-            // ✅ Create Table with Column Layout
-            float[] columnWidths = { 3, 4, 2, 2, 3, 3, 3, 4}; // Adjusted for better fit
+            float[] columnWidths = {3, 4, 2, 2, 3, 3, 3, 4};
             Table table = new Table(UnitValue.createPercentArray(columnWidths)).useAllAvailableWidth();
 
-            // ✅ Add Table Headers
             String[] headers = {"Title", "Description", "Status", "Severity", "Assigned To", "From Date", "To Date", "Sprint"};
             for (String header : headers) {
                 table.addHeaderCell(new Cell().add(new Paragraph(header).setBold().setTextAlignment(TextAlignment.CENTER)));
             }
 
-         
             for (Bugdto bug : bugList) {
                 table.addCell(new Cell().add(new Paragraph(bug.getTitle()).setTextAlignment(TextAlignment.LEFT)));
                 table.addCell(new Cell().add(new Paragraph(bug.getDescription()).setTextAlignment(TextAlignment.LEFT)));
@@ -140,8 +136,9 @@ public class BugReportServiceImpl {
             document.add(table);
             document.close();
 
-            return filePath; 
+            return filePath;
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException("Error while generating CSV report", e);
         }
-}}
+    }
+}

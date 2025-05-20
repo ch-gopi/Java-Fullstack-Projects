@@ -41,7 +41,7 @@ public class BugReportController {
         Resource resource = new FileSystemResource(file);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("text/csv"))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"bugs_report.csv\"") 
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"bugs_report.csv\"")
                 .body(resource);
     }
 
@@ -59,7 +59,7 @@ public class BugReportController {
         Resource resource = new FileSystemResource(file);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"bugs_report.pdf\"") 
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"bugs_report.pdf\"")
                 .body(resource);
     }
 }

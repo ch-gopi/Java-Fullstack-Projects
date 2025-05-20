@@ -166,7 +166,7 @@ public class Bugserviceimpl implements Bugservice {
         Specification<Bug> spec = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            // ✅ Apply filters dynamically based on the frontend input
+            //  Apply filters dynamically based on the frontend input
             if (filters.containsKey("searchTerm") && !filters.get("searchTerm").isEmpty()) {
                 predicates.add(criteriaBuilder.like(root.get("title"), "%" + filters.get("searchTerm") + "%"));
             }
