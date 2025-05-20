@@ -39,7 +39,7 @@ public class BugReportServiceImpl {
         String reportDirectory = System.getProperty("user.dir") + "/reports";
         File reportsDir = new File(reportDirectory);
         if (!reportsDir.exists()) {
-            reportsDir.mkdir(); // ✅ Ensures "reports" directory exists
+            reportsDir.mkdir();
         }
 
         String filePath = reportDirectory + "/bugs_report.csv";
@@ -63,8 +63,8 @@ public class BugReportServiceImpl {
             writer.append("Title,Description,Status,Severity,Assigned To,From Date,To Date,Sprint\n");
 
             for (Bugdto bug : bugList) {
-                writer.append("\"").append(bug.getTitle()).append("\"").append(",");  // ✅ Wraps title in quotes
-                writer.append("\"").append(bug.getDescription()).append("\"").append(",");  // ✅ Wraps description in quotes
+                writer.append("\"").append(bug.getTitle()).append("\"").append(",");  
+                writer.append("\"").append(bug.getDescription()).append("\"").append(",");  
                 writer.append(bug.isCompleted() ? "Completed" : "Pending").append(",");
                 writer.append(bug.getSeverity().toString()).append(",");
                 writer.append(bug.getUserEmail()).append(",");
@@ -74,9 +74,9 @@ public class BugReportServiceImpl {
             }
 
             writer.flush();
-            return filePath; // ✅ Returns actual file path
+            return filePath;
         } catch (IOException e) {
-            return null; // ✅ Handle failure
+            return null; 
         }
     }
 
@@ -85,7 +85,7 @@ public class BugReportServiceImpl {
         String reportDirectory = System.getProperty("user.dir") + "/reports";
         File reportsDir = new File(reportDirectory);
         if (!reportsDir.exists()) {
-            reportsDir.mkdir(); // ✅ Ensure reports directory exists
+            reportsDir.mkdir(); 
         }
 
         List<Bugdto> bugList = (filters == null || filters.isEmpty())
@@ -125,7 +125,7 @@ public class BugReportServiceImpl {
                 table.addHeaderCell(new Cell().add(new Paragraph(header).setBold().setTextAlignment(TextAlignment.CENTER)));
             }
 
-            // ✅ Add Data Rows with Wrapped Text
+         
             for (Bugdto bug : bugList) {
                 table.addCell(new Cell().add(new Paragraph(bug.getTitle()).setTextAlignment(TextAlignment.LEFT)));
                 table.addCell(new Cell().add(new Paragraph(bug.getDescription()).setTextAlignment(TextAlignment.LEFT)));
@@ -140,8 +140,8 @@ public class BugReportServiceImpl {
             document.add(table);
             document.close();
 
-            return filePath; // ✅ Returns actual file path
+            return filePath; 
         } catch (Exception e) {
-            return null; // ✅ Handle failure gracefully
+            return null;
         }
 }}
