@@ -14,7 +14,9 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BugReportServiceImpl {
@@ -45,8 +48,11 @@ public class BugReportServiceImpl {
         String filePath = reportDirectory + "/bugs_report.csv";
 
         List<Bugdto> bugList = (filters == null || filters.isEmpty())
-                ? bugservice.getAllBugs(Pageable.unpaged()).getContent()
-                : bugservice.getAllFilteredBugs(filters);
+                ? bugservice.getAllBugs(PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "fromDate"))).getContent()
+                : bugservice.getAllFilteredBugs(filters).stream()
+                .sorted(Comparator.comparing(Bugdto::getFromDate).reversed())
+                .collect(Collectors.toList());
+
         List<Sprint> sprint = sprintRepository.findAll();
         Map<Long, String> hm = new HashMap<>();
         Set<Long> hs = new HashSet<>();
@@ -89,8 +95,11 @@ public class BugReportServiceImpl {
         }
 
         List<Bugdto> bugList = (filters == null || filters.isEmpty())
-                ? bugservice.getAllBugs(Pageable.unpaged()).getContent()
-                : bugservice.getAllFilteredBugs(filters);
+                ? bugservice.getAllBugs(PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "fromDate"))).getContent()
+                : bugservice.getAllFilteredBugs(filters).stream()
+                .sorted(Comparator.comparing(Bugdto::getFromDate).reversed())
+                .collect(Collectors.toList());
+
         List<Sprint> sprint = sprintRepository.findAll();
         Map<Long, String> hm = new HashMap<>();
         Set<Long> hs = new HashSet<>();
