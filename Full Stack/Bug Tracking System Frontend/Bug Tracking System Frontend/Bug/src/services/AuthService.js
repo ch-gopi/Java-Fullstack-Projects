@@ -32,6 +32,7 @@ export const getLoggedInUser = () => {
     return username;
 }
 
+
 export const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
