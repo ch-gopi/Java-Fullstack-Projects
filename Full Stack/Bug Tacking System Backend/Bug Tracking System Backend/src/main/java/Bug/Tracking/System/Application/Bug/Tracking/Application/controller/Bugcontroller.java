@@ -68,7 +68,7 @@ public class Bugcontroller {
         return ResponseEntity.ok(bugs);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<Bugdto> updatedBug(@PathVariable("id") Long bugid, @RequestBody Bugdto bugdto) throws MessagingException {
         Bugdto updatedBug = bugservice.updateBug(bugdto, bugid);

@@ -43,6 +43,10 @@ public class Bugserviceimpl implements Bugservice {
     @Override
     public Bugdto addBug(Bugdto bugdto) {
         Bug bug = modelMapper.map(bugdto, Bug.class);
+        if (bugdto.getImagePaths() != null) {
+            bug.setImagePaths(bugdto.getImagePaths());
+        }
+
         Bug savedBug = bugrepository.save(bug);
 
         // Fetch assigned user details
@@ -68,7 +72,7 @@ public class Bugserviceimpl implements Bugservice {
         Bug bug = bugrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("BUG NOT FOUND WITH ID " + id));
         return modelMapper.map(bug, Bugdto.class);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public Page<Bugdto> getAllBugs(Pageable pageable) {
         // Fetch all bugs and sort by 'fromDate'
@@ -79,8 +83,14 @@ public class Bugserviceimpl implements Bugservice {
         int end = Math.min(start + pageable.getPageSize(), sortedBugs.size());
         List<Bug> paginatedBugs = sortedBugs.subList(start, end);
 
-        PageImpl<Bug> sortedPage = new PageImpl<>(paginatedBugs, pageable, sortedBugs.size());
-        return sortedPage.map(bug -> modelMapper.map(bug, Bugdto.class));
+        // Convert to DTO while ensuring imagePaths are loaded
+        List<Bugdto> bugDtos = paginatedBugs.stream().map(bug -> {
+            Bugdto dto = modelMapper.map(bug, Bugdto.class);
+            dto.setImagePaths(bug.getImagePaths() != null ? new ArrayList<>(bug.getImagePaths()) : new ArrayList<>());
+            return dto;
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(bugDtos, pageable, sortedBugs.size());
     }
 
 
@@ -88,6 +98,10 @@ public class Bugserviceimpl implements Bugservice {
     public Bugdto updateBug(Bugdto bugdto, Long id) {
         Bug bug = bugrepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Bug not found: " + id));
+        Sprint sprint = sprintRepository.findById(bugdto.getSprintId())
+                .orElseThrow(() -> new RuntimeException("Sprint not found"));
+
+       // ✅ Assign the full Sprint object, not just its ID
 
         Optional<User> user = userRepository.findById(bugdto.getUserId());
         bug.setTitle(bugdto.getTitle());
@@ -95,6 +109,7 @@ public class Bugserviceimpl implements Bugservice {
         bug.setCompleted(bugdto.isCompleted());
         bug.setFromDate(bugdto.getFromDate());
         bug.setToDate(bugdto.getToDate());
+        bug.setSprint(sprint);
         bug.setUser(user.orElse(null));
         bug.setSeverity(bugdto.getSeverity());
 

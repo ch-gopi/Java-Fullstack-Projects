@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import Bug.Tracking.System.Application.Bug.Tracking.Application.Enums.Severity;
 
@@ -20,12 +21,11 @@ public class Bugdto {
     private String description;
     private boolean completed;
     private String userEmail;
-
     private LocalDate fromDate;
     private LocalDate toDate;
     private Severity severity;
     private Long userId;
     private Long sprintId;
-
+    private List<String> imagePaths;
 
 }

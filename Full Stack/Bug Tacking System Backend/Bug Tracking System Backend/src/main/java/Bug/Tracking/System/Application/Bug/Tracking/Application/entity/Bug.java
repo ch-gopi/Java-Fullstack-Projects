@@ -1,3 +1,4 @@
+
 package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
 
 import Bug.Tracking.System.Application.Bug.Tracking.Application.Enums.Severity;
@@ -9,6 +10,8 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,5 +49,10 @@ public class Bug {
     @ManyToOne
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
+    @Column(name = "image_path")
+    private List<String> imagePaths = new ArrayList<>();
 
 }
