@@ -41,14 +41,12 @@ export const inCompleteBug = (id) =>
 export const getBugAnalytics = () =>
   axios.get(BASE_REST_API_URL + "/analytics");
 
-// ✅ IMAGE UPLOAD FUNCTIONS
 
-// 🔹 Upload images for a specific bug
 export const uploadImage = (bugId, files) => {
     const formData = new FormData();
     
     files.forEach(file => {
-        formData.append("files", file); // ✅ Append multiple files correctly
+        formData.append("files", file); 
     });
 
     return axios.post(`${BASE_IMAGES_API_URL}/upload/${bugId}`, formData, {
@@ -59,7 +57,7 @@ export const uploadImage = (bugId, files) => {
 // 🔹 Get images for a specific bug
 export const getBugImages = (bugId) => 
     axios.get(`${BASE_IMAGES_API_URL}/${bugId}`, {
-        headers: { "Authorization": getToken() } // ✅ Ensure authentication is included
+        headers: { "Authorization": getToken() } 
     })
     .then(response => {
            
@@ -73,14 +71,12 @@ export const getBugImages = (bugId) =>
 
 
 
-// ✅ Wrapper Functions to Handle Bug Creation & Image Upload Together
-
 export const saveBugWithImages = async (bug, imageFiles) => {
     const bugResponse = await saveBug(bug);
     const bugId = bugResponse.data.id;
 
     if (imageFiles.length > 0) {
-        await uploadImage(bugId, imageFiles); // ✅ Upload all images at once
+        await uploadImage(bugId, imageFiles); 
     }
 
     return bugResponse;
@@ -90,13 +86,13 @@ export const updateBugWithImages = async (id, bug, imageFiles) => {
     await updateBug(id, bug);
 
     if (imageFiles.length > 0) {
-        await uploadImage(id, imageFiles); // ✅ Upload all images at once
+        await uploadImage(id, imageFiles); 
     }
 };
 
 
 export const getBugComments = (bugId) => {
-    return axios.get(`${BASE_REST_API_URL}/${bugId}/comments`); // ✅ Fix: Ensure request hits the comments endpoint
+    return axios.get(`${BASE_REST_API_URL}/${bugId}/comments`); 
 };
 
 export const addBugComment = (bugId, userId, commentText) => {
