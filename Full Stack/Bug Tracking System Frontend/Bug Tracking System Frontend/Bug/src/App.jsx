@@ -11,7 +11,7 @@ import { isUserLoggedIn } from './services/AuthService'
 import HomeComponent from './components/HomeComponent'
 import ContactComponent from './components/ContactComponent'
 import FeaturesComponent from './components/FeaturesComponent'
-import ForgotpasswordComponent from './components/ForgotpasswordComponent'
+import ForgotpasswordComponent from './components/ForgotPasswordComponent'
 import AboutComponent from './components/AboutComponent'
 import { NotificationProvider } from './components/NotificationContext' // Import Notification Provider
 

@@ -12,3 +12,38 @@
     margin-bottom: 5px;
 }
 
+.thumbnail {
+    width: 50px; /* ✅ Adjust as needed */
+    height: 50px;
+    object-fit: cover; /* ✅ Keeps aspect ratio */
+    border-radius: 5px;
+    margin-right: 5px;
+}
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 80px;
+  overflow-y: auto;
+}
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* ✅ Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.preview-image {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    cursor: auto;
+}
+
+
