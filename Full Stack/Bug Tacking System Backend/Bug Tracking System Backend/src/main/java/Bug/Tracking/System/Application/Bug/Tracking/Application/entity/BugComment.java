@@ -36,7 +36,7 @@ public class BugComment {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // ✅ Automatically set timestamps
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -47,5 +47,5 @@ public class BugComment {
         updatedAt = LocalDateTime.now();
     }
 
-    // ✅ Getters & Setters
+
 }

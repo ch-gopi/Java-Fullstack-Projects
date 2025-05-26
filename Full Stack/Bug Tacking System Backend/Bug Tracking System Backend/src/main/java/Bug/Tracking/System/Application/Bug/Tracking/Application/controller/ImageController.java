@@ -67,7 +67,7 @@ public class ImageController {
             List<String> fullImagePaths = bug.get().getImagePaths().stream()
                     .map(fileName -> "http://localhost:8082/api/images/uploads/images/" + fileName) // ✅ Convert to full URL
                     .toList();
-
+          
             return ResponseEntity.ok(fullImagePaths);
         }
 

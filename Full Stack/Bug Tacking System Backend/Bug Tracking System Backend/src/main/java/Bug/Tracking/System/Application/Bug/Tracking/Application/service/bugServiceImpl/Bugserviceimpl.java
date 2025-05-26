@@ -8,6 +8,7 @@ import Bug.Tracking.System.Application.Bug.Tracking.Application.entity.Bug;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.entity.Sprint;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.entity.User;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.exception.ResourceNotFoundException;
+import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.BugCommentRepository;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.Bugrepository;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.SprintRepository;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.UserRepository;
@@ -37,6 +38,7 @@ public class Bugserviceimpl implements Bugservice {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final EmailServiceImpl emailService;
+    private final BugCommentRepository bugCommentRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(Bugcontroller.class);
 
@@ -101,7 +103,7 @@ public class Bugserviceimpl implements Bugservice {
         Sprint sprint = sprintRepository.findById(bugdto.getSprintId())
                 .orElseThrow(() -> new RuntimeException("Sprint not found"));
 
-       // ✅ Assign the full Sprint object, not just its ID
+
 
         Optional<User> user = userRepository.findById(bugdto.getUserId());
         bug.setTitle(bugdto.getTitle());
@@ -118,12 +120,13 @@ public class Bugserviceimpl implements Bugservice {
         // Notify the assigned user about the status change
         user.ifPresent(u -> {
             String status = bugdto.isCompleted() ? "Completed" : "Not Completed";
-            String emailBody = "Your bug status has been updated to: " + status;
+            String emailBody = "Your bug  has been updated to: " + status;
+
             try {
-                emailService.sendEmail(u.getEmail(), "Bug Status Updated", emailBody);
+                emailService.sendEmail(u.getEmail(), "Bug Updated", emailBody);
+                logger.info("Email sent successfully to assigned user: {}", u.getEmail());
             } catch (MessagingException e) {
-                logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
-                //  throw new RuntimeException(e);
+                logger.warn("Failed to send email to {}: {}", u.getEmail(), e.getMessage());
             }
         });
 
@@ -131,8 +134,10 @@ public class Bugserviceimpl implements Bugservice {
     }
 
 
+@Transactional
     @Override
     public void deleteBug(Long id) {
+        bugCommentRepository.deleteByBugId(id);
         Bug bug = bugrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Bug not found with id: " + id));
         bugrepository.deleteById(id);
     }

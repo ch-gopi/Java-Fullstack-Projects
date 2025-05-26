@@ -8,6 +8,7 @@ import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.Bugre
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,7 +33,7 @@ public class BugCommentService {
 
         bugCommentRepository.save(newComment);
     }
-
+    @Transactional
     public List<BugComment> getComments(Long bugId) {
         List<BugComment> comments = bugCommentRepository.findByBugId(bugId);
         System.out.println("Fetched Comments: " + comments);

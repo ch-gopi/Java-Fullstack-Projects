@@ -41,7 +41,7 @@ public class SpringSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf((csrf) -> csrf.disable())
-                .cors(cors -> cors.configure(http))
+
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> {
 
@@ -54,7 +54,7 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers("/api/images/uploads/images/**","/api/images/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/api/reports/export/csv").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/api/reports/export/pdf").permitAll();
-                    authorize.requestMatchers("/api/bugs/{bugId}/comments/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET,"/api/coms/{bugId}/comments").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 

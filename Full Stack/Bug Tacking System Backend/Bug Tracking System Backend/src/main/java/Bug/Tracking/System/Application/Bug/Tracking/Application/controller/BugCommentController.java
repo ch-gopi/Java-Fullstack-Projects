@@ -7,24 +7,35 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/bugs/{bugId}/comments")
+@RequestMapping("/api/coms")
 @AllArgsConstructor
 public class BugCommentController {
     private final BugCommentService bugCommentService;
 
-    @PostMapping
+    @PostMapping("/{bugId}/comments")
     public ResponseEntity<String> addComment(@PathVariable Long bugId, @RequestParam Long userId, @RequestParam String commentText) {
         bugCommentService.addComment(bugId, userId, commentText);
         return ResponseEntity.ok("Comment added successfully!");
     }
 
-    @GetMapping
+    @GetMapping("/{bugId}/comments")
     public ResponseEntity<List<BugComment>> getComments(@PathVariable Long bugId) {
-        return ResponseEntity.ok(bugCommentService.getComments(bugId));
+
+        System.out.println("Fetching comments for Bug ID: " + bugId);
+
+        List<BugComment> comments = bugCommentService.getComments(bugId);
+        System.out.println("Fetched Comments Count: " + comments);
+
+        if (comments.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList()); // ✅ Return empty list instead of 500 error
+        }
+
+        return ResponseEntity.ok(comments);
     }
 
     @PutMapping("/{commentId}")

@@ -13,9 +13,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/uploads/images/**") // ✅ Allow image access
-                        .allowedOrigins("*") // ✅ Adjust to restrict access
-                        .allowedMethods("GET"); // ✅ Ensures images can be retrieved
+                registry.addMapping("/uploads/images/**")
+                        .allowedOrigins("/api/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET");
             }
         };
     }

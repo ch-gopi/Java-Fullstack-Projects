@@ -11,9 +11,9 @@ public class PasswordEncoderImpl {
     public static void main(String[] args) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        System.out.println(passwordEncoder.encode("gopi"));
+        System.out.println(passwordEncoder.encode("admin@123"));
 
-        System.out.println(passwordEncoder.encode("admin"));
+        System.out.println(passwordEncoder.encode("joe@123"));
 
 
     }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.mail.MessagingException;
 
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/email")
 @AllArgsConstructor

@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/bugs")
 @AllArgsConstructor
@@ -68,15 +68,14 @@ public class Bugcontroller {
         return ResponseEntity.ok(bugs);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Bugdto> updatedBug(@PathVariable("id") Long bugid, @RequestBody Bugdto bugdto) throws MessagingException {
         Bugdto updatedBug = bugservice.updateBug(bugdto, bugid);
 
         // Send Email Notification on Status Update
-        String emailBody = "Bug status updated: " +bugdto.getTitle() +" is "+ (bugdto.isCompleted() ? "Completed" : "Not Completed");
+        String emailBody = "Bug updated: " +bugdto.getTitle() +" is "+ (bugdto.isCompleted() ? "Completed" : "Not Completed");
         try {
-            emailService.sendEmail(bugdto.getUserEmail(), "Bug Status Updated", emailBody);
+            emailService.sendEmail(bugdto.getUserEmail(), "Bug Updated", emailBody);
         } catch (MessagingException e) {
             logger.warn("Failed to send email to {}: {}", bugdto.getUserEmail(), e.getMessage());
         } catch (Exception e) {
@@ -85,11 +84,19 @@ public class Bugcontroller {
         return ResponseEntity.ok(updatedBug);
     }
 
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteBug(@PathVariable("id") Long bugid) {
-        bugservice.deleteBug(bugid);
-        return ResponseEntity.ok("Bug deleted successfully");
+
+        try {
+            bugservice.deleteBug(bugid);
+            return ResponseEntity.ok("Bug deleted successfully");
+        } catch (Exception e) {
+            System.err.println("Error deleting bug: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete bug");
+        }
+
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")

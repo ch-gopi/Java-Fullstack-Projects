@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface BugCommentRepository extends JpaRepository<BugComment, Long> {
     List<BugComment> findByBugId(Long bugId);
+
+    void deleteByBugId(Long id);
 }

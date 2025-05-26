@@ -2,6 +2,7 @@
 package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
 
 import Bug.Tracking.System.Application.Bug.Tracking.Application.Enums.Severity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,5 +55,9 @@ public class Bug {
     @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
     @Column(name = "image_path")
     private List<String> imagePaths = new ArrayList<>();
+
+    @OneToMany(mappedBy = "bug", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<BugComment> comments;
 
 }
