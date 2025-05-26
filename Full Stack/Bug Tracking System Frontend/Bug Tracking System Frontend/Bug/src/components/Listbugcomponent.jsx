@@ -43,22 +43,22 @@ function listBugs(page = 0, size = 8) {
 
             const bugsWithImages = response.data.content.map(bug => ({
                 ...bug,
-                imagePaths: [] // ✅ Initialize empty array
+                imagePaths: [] 
             }));
 
             setBugs(bugsWithImages);
             setFilteredBugs(bugsWithImages);
             setCurrentPage(page);
 
-            // ✅ Fetch images and update imagePaths using `.map()`
+         
    Promise.all(
     bugsWithImages.map(bug =>
         getBugImages(bug.id)
             .then(imageResponse => {
-                console.log(`Extracted image paths for Bug ${bug.id}:`, imageResponse); // ✅ Logs fetched images
+                console.log(`Extracted image paths for Bug ${bug.id}:`, imageResponse); 
                 return {
                     ...bug,
-                    imagePaths: Array.isArray(imageResponse) ? [...imageResponse] : [] // ✅ Ensure array is copied
+                    imagePaths: Array.isArray(imageResponse) ? imageResponse : [] 
                 };
             })
             .catch(error => {
@@ -68,9 +68,9 @@ function listBugs(page = 0, size = 8) {
     )
 ).then(updatedBugs => {
     setBugs(updatedBugs);
-    setFilteredBugs(updatedBugs); // ✅ Ensure filtered list updates too!
+    setFilteredBugs(updatedBugs);
 
-    console.log("Updated Bugs with Images:", updatedBugs); // ✅ Debug final state
+    console.log("Updated Bugs with Images:", updatedBugs); 
 });
 
         })
@@ -121,6 +121,7 @@ function listBugs(page = 0, size = 8) {
       (bug) =>
         (searchTerm
           ? bug.title.toLowerCase().includes(searchTerm.toLowerCase())
+          || bug.id.toString() === searchTerm
           : true) &&
         (selectedSeverity
           ? bug.severity?.toLowerCase() === selectedSeverity.toLowerCase()
@@ -164,7 +165,7 @@ function listBugs(page = 0, size = 8) {
         <input
           type="text"
           className="form-control"
-          placeholder="Search bugs by title..."
+          placeholder="Ticket No.. or Title..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -252,6 +253,7 @@ function listBugs(page = 0, size = 8) {
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
+             <th style={{ fontSize: "15px", width: "20px" }}>No..</th> 
             <th style={{ fontSize: "15px", width: "100px" }}>Bug Title</th>
             <th style={{ fontSize: "15px", width: "100px" }}>Description</th>
             <th style={{ fontSize: "15px", width: "1px" }}>Completed</th>
@@ -269,6 +271,7 @@ function listBugs(page = 0, size = 8) {
         <tbody>
           {filteredBugs.map((bug) => (
             <tr key={bug.id}>
+               <td style={{ fontSize: "15px" }}>{bug.id}</td> 
               <td style={{ fontSize: "15px" }}>{bug.title}</td>
               <td style={{ fontSize: "15px" }}>{bug.description}</td>
               <td style={{ fontSize: "15px" }}>
@@ -276,7 +279,7 @@ function listBugs(page = 0, size = 8) {
               </td>
               <td style={{ fontSize: "15px" }}>
                 {bug.fromDate
-                  ? new Date(bug.fromDate).toLocaleDateString("en-US", {
+                  ? new Date(bug.fromDate).toLocaleDateString("en-IN", {
                       day: "2-digit",
                       weekday: "short",
                       month: "short",
@@ -286,7 +289,7 @@ function listBugs(page = 0, size = 8) {
               </td>
               <td style={{ fontSize: "15px" }}>
                 {bug.toDate
-                  ? new Date(bug.toDate).toLocaleDateString("en-US", {
+                  ? new Date(bug.toDate).toLocaleDateString("en-IN", {
                       day: "2-digit",
                       weekday: "short",
                       month: "short",
@@ -312,10 +315,10 @@ function listBugs(page = 0, size = 8) {
                     src={path.startsWith("http") ? path : `http://localhost:8082/api/images/uploads/images/${path}`} 
                     alt="Bug Image" 
                     className="thumbnail"
-                    onClick={() => setPreviewImage(path)} // ✅ Opens modal on click
+                    onClick={() => setPreviewImage(path)} 
                     onError={(e) => {
                         console.error(`Image failed to load: ${path}`);
-                        e.target.src = "/default-placeholder.png"; // ✅ Show fallback image
+                        e.target.src = "/default-placeholder.png"; 
                     }}
                 />
             ))}

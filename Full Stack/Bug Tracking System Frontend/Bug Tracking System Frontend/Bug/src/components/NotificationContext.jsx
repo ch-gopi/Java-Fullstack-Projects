@@ -15,13 +15,13 @@ export const NotificationProvider = ({ children }) => {
    
     setTimeout(() => {
       setNotifications([]); // Reseting notifications array
-    }, 15000);
+    }, 150000);
   };
 
   const clearNotifications = () => {
     setTimeout(() => {
       setNotifications([]);
-    }, 2000); 
+    }, 20000); 
   };
 
   return (

@@ -32,7 +32,7 @@ const BugComponent = () => {
   const [isLoadingImages, setIsLoadingImages] = useState(false);
   const [comments, setComments] = useState([]);
 const [newComment, setNewComment] = useState("");
-const [loggedInUser, setLoggedInUser] = useState(null); // ✅ Store only the user ID
+const [loggedInUser, setLoggedInUser] = useState(null);
 
 
 
@@ -53,10 +53,10 @@ const [loggedInUser, setLoggedInUser] = useState(null); // ✅ Store only the us
     const userFound = response.data.find(user => {
         const fetchedChars = new Set(user.username.toLowerCase().split(""));
         
-        // ✅ Check if all characters of loggedInUsername exist within fetched username
+       
         return [...loggedInChars].every(char => fetchedChars.has(char));
     });        if (userFound) {
-            setLoggedInUser(userFound.id); // ✅ Store only the user ID
+            setLoggedInUser(userFound.id); 
             console.log("Resolved User ID:", userFound.id);
         } else {
             console.warn("Logged-in user not found in user list!");
@@ -132,12 +132,12 @@ const [loggedInUser, setLoggedInUser] = useState(null); // ✅ Store only the us
             console.error(`Invalid date format: ${dateString}`);
             return "";
         }
-        // ✅ Adjust time zone differences
+   
         date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
         const year = date.getFullYear();
-        const month = String(date.getMonth()+1 ).padStart(2, '0'); // ✅ Converts `5` → `05`
-        const day = String(date.getDate()).padStart(2, '0'); // ✅ Converts `4` → `04`
-        return `${year}-${month}-${day}`; // ✅ Ensures proper "yyyy-MM-dd" format
+        const month = String(date.getMonth()+1 ).padStart(2, '0'); 
+        const day = String(date.getDate()).padStart(2, '0'); 
+        return `${year}-${month}-${day}`; 
     } catch (error) {
         console.error(`Error parsing date: ${dateString}`, error);
         return "";
@@ -177,13 +177,17 @@ const fetchComments = async () => {
     try {
         const response = await getBugComments(id);
         console.log("Fetched Comments Response:", response);
-        console.log("Fetched Comments Data:", response.data);
-        setComments(response.data);
-               console.log("Updated Comments State:", comments);
+
+   
+        setComments(Array.isArray(response) ? response : []);
+        
+        console.log("Updated Comments State:", response);
     } catch (error) {
-        console.error("Error fetching comments:", error.response ? error.response.data : error);
+        console.error("Error fetching comments:", error.response?.data || error);
+        setComments([]); 
     }
 };
+
 
 
   const handleFileChange = (e) => {
@@ -227,25 +231,23 @@ const fetchComments = async () => {
             `Email sent to ${selectedUserObject.email}`,
             selectedUserObject.username
           );
-          // ✅ Ensure images are uploaded AFTER bug update
           if (imageFiles.length > 0) {
             return Promise.all(
               imageFiles.map((file) => {
                 const formData = new FormData();
                 formData.append("file", file);
-                return uploadImage(id, formData); // ✅ Upload all images at once
+                return uploadImage(id, formData); 
               })
             );
           }
           return Promise.resolve();
-        }).then(() => navigate("/bugs"))
-        .then(() => updateBugWithImages(id, bug, imageFiles)) // ✅ Then updates bug with images in DB
-     
+        })
+        .then(() => updateBugWithImages(id, bug, imageFiles)) 
+       .then(() => navigate("/bugs"))
         .catch((error) => {
           console.error("Error updating bug:", error);
-         
-        // ✅ Only send failure notification if bug couldn't be saved at all
-        if (error.response || error.response.status >= 400) {
+        
+        if (error.response && error.response.status > 400) {
             addNotification(
                 `No email sent to ${selectedUserObject.email}`,
                 selectedUserObject.username
@@ -262,24 +264,22 @@ const fetchComments = async () => {
             selectedUserObject.username
           );
 
-          // ✅ Upload images AFTER bug save confirmation
           if (imageFiles.length > 0) {
             return Promise.all(
               imageFiles.map((file) => {
                 const formData = new FormData();
                 formData.append("file", file);
-                return uploadImage(bugId, formData); // ✅ Upload all images at once
+                return uploadImage(bugId, formData); 
               })
             ).then(() => bugId);
           }
           return Promise.resolve(bugId);
         }) .then(() => navigate("/bugs"))
-        .then((bugId) => saveBugWithImages(bugId, bug, imageFiles)) // ✅ Then saves bug with images in DB
+        .then((bugId) => saveBugWithImages(bugId, bug, imageFiles)) 
        
          .catch((error) => {
         console.error("Error saving bug:", error);
 
-        // ✅ Prevent duplicate notifications by checking if the email already succeeded
         if (error.response && error.response.status > 400) {
             addNotification(
                 `No email sent to ${selectedUserObject.email}`,
@@ -420,7 +420,7 @@ const fetchComments = async () => {
                         className="thumbnail"
                         onError={(e) => {
                           console.error(`Image failed to load: ${path}`);
-                          e.target.style.display = "none"; // ✅ Hide broken images
+                          e.target.style.display = "none"; 
                         }}
                       />
                     ))
@@ -441,29 +441,40 @@ const fetchComments = async () => {
                 />
               </div>
 <div className="comments-list">
-    {comments.length > 0 ? (
+    {Array.isArray(comments) && comments.length > 0 ? (
         comments.map((comment) => (
             <div key={comment.id} className="comment-item">
                 <p><strong>{comment.user?.name || "Unknown"}</strong>: {comment.comment}</p>
-<p className="comment-date">
-    Posted on: {new Date(...comment.createdAt).toLocaleString()}
-</p>            </div>
+                <p className="comment-date">
+                    Posted on: {comment.createdAt ? new Date(...comment.createdAt).toLocaleString() : "Timestamp missing"}
+                </p>
+            </div>
         ))
     ) : (
         <p>No comments found for this bug.</p>
     )}
 </div>
 
-              <div className="form-group mb-2">
-    <label className="form-label">Comments:</label>
+<div className="form-group mb-2">
+    <label htmlFor="commentBox" className="form-label">Comments:</label>
     <textarea
+        id="commentBox"
         className="form-control"
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
         placeholder="Add a comment..."
+        rows="4" 
+        required 
     ></textarea>
-    <button className="btn btn-success btn-sm mt-2" onClick={handleAddComment}>Comment</button>
-  </div>
+    <button 
+        className="btn btn-success btn-sm mt-2" 
+        onClick={handleAddComment} 
+        disabled={!newComment.trim()}
+    >
+        Comment
+    </button>
+</div>
+
 
 
               <div className="form-group mt-4">

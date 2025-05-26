@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getBugAnalytics } from '../services/Bugservice'; 
-import backgroundImage from '../assets/gbm.png';
+import loggedInBg from "../assets/wm.png";
+import defaultBg from "../assets/gbm.png";
 import { Chart } from 'react-chartjs-2'; 
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
@@ -9,12 +10,27 @@ ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
 import ContactComponent from '../components/ContactComponent'
 import FeaturesComponent from '../components/FeaturesComponent'
 import AboutComponent from '../components/AboutComponent'
+import {isUserLoggedIn } from "../services/AuthService";
 
 const HomeComponent = () => {
     const [analytics, setAnalytics] = useState({});
     const [bgImageLoaded, setBgImageLoaded] = useState(false);
-
   
+const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn()); 
+
+const welcomeTextColor = isLoggedIn ? "white" : "black"; 
+const resolvedBugsColor = isLoggedIn ? "white" : "black"; 
+
+
+const [backgroundImage, setBackgroundImage] = useState(
+    isLoggedIn ? defaultBg : loggedInBg
+);
+
+ useEffect(() => {
+    setIsLoggedIn(isUserLoggedIn()); 
+    setBackgroundImage(isLoggedIn ? defaultBg: loggedInBg);
+}, []);
+ 
 useEffect(() => {
     const fetchAnalytics = async (retries = 3) => { 
         try {
@@ -39,8 +55,10 @@ useEffect(() => {
 }, []);
     const homeStyle = {
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+       backgroundSize: 'cover',
+  
+backgroundRepeat: 'no-repeat',
+backgroundPosition: 'center',
         minHeight: '100vh',
         color: 'white',
         display: 'flex',
@@ -76,7 +94,7 @@ useEffect(() => {
     return (
         <div>
         <div style={homeStyle}>
-        <div style={{ marginTop: '38px',marginRight: '680px'}}>
+        <div style={{color: welcomeTextColor, marginTop: '38px',marginRight: '680px'}}>
             <h1 >🚀 Welcome to Bug Tracking Application</h1>
             <p style={{ maxWidth: '600px', fontSize: '18px',marginLeft: '140px' }}>
                 Track, manage, and resolve bugs efficiently with our intuitive platform. 
@@ -89,7 +107,7 @@ useEffect(() => {
                 <Link to="/contact" style={buttonStyle}>Contact</Link>
             </div>
             </div>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '50px', marginTop: '-215px',marginRight: '140px'}}>
+           <div style={{ color: resolvedBugsColor,display: 'flex', alignItems: 'center', gap: '50px', marginTop: '-215px',marginRight: '140px'}}>
             <div className="row" >
                 <div className="col-md-6">
                     <h4>Total Bugs: {analytics.totalBugs || 0}</h4>
