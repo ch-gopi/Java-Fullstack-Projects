@@ -2,6 +2,7 @@ import axios from "axios";
 import { getToken } from "./AuthService";
 import qs from "qs";
 const BASE_REST_API_URL = "http://localhost:8082/api/bugs";
+const BASE_REST_COMS_URL = "http://localhost:8082/api/coms";
 const BASE_USERS_API_URL = "http://localhost:8082/api/users";
 const BASE_SPRINTS_API_URL = "http://localhost:8082/api/sprints";
 const BASE_IMAGES_API_URL = "http://localhost:8082/api/images";
@@ -92,7 +93,7 @@ export const updateBugWithImages = async (id, bug, imageFiles) => {
 
 
 export const getBugComments = (bugId) => {
-    return axios.get(`${BASE_REST_API_URL}/${bugId}/comments`); 
+    return axios.get(`${BASE_REST_COMS_URL }/${bugId}/comments`); 
 };
 
 export const addBugComment = (bugId, userId, commentText) => {
@@ -100,7 +101,7 @@ export const addBugComment = (bugId, userId, commentText) => {
 
   const data = qs.stringify({ userId, commentText });
 
-  return axios.post(`${BASE_REST_API_URL}/${bugId}/comments`, data, {
+  return axios.post(`${BASE_REST_COMS_URL}/${bugId}/comments`, data, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }
