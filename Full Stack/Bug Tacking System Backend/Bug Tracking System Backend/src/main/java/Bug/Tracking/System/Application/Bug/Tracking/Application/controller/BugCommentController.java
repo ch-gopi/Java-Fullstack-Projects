@@ -32,7 +32,7 @@ public class BugCommentController {
         System.out.println("Fetched Comments Count: " + comments);
 
         if (comments.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList()); // ✅ Return empty list instead of 500 error
+            return ResponseEntity.ok(Collections.emptyList()); //  Return empty list instead of 500 error
         }
 
         return ResponseEntity.ok(comments);
