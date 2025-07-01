@@ -44,11 +44,11 @@ public class ImageController {
                 Files.write(filePath, file.getBytes());
                 storedImagePaths.add(fileName);
             }catch(IOException e){
-                    System.err.println("Error saving file: " + file.getOriginalFilename()); // ✅ Log failures
+                    System.err.println("Error saving file: " + file.getOriginalFilename()); //  Log failures
 
                 }
             }
-            // ✅ Store image paths in DB
+            //  Store image paths in DB
             Bug bug = bugRepository.findById(bugId).orElseThrow(() -> new RuntimeException("Bug not found"));
             bug.getImagePaths().addAll(storedImagePaths);
             bugRepository.save(bug);
@@ -65,13 +65,13 @@ public class ImageController {
 
         if (bug.isPresent() && bug.get().getImagePaths() != null && !bug.get().getImagePaths().isEmpty()) {
             List<String> fullImagePaths = bug.get().getImagePaths().stream()
-                    .map(fileName -> "http://localhost:8082/api/images/uploads/images/" + fileName) // ✅ Convert to full URL
+                    .map(fileName -> "http://localhost:8082/api/images/uploads/images/" + fileName) //  Convert to full URL
                     .toList();
           
             return ResponseEntity.ok(fullImagePaths);
         }
 
-        return ResponseEntity.ok(Collections.emptyList()); // ✅ Return empty list if no images found
+        return ResponseEntity.ok(Collections.emptyList()); //  Return empty list if no images found
     }
 
     @GetMapping("/uploads/images/{fileName:.+}")
@@ -81,12 +81,12 @@ public class ImageController {
             Resource resource = new UrlResource(filePath.toUri());
 
             if (!resource.exists() || !resource.isReadable()) {
-                System.out.println("Image not found: " + filePath.toString()); // ✅ Debugging log
+                System.out.println("Image not found: " + filePath.toString()); // Debugging log
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
 
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_PNG) // ✅ Adjust based on file type
+                    .contentType(MediaType.IMAGE_PNG) //  Adjust based on file type
                     .body(resource);
         } catch (MalformedURLException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
