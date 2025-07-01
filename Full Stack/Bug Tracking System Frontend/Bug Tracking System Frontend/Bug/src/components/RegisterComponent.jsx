@@ -26,7 +26,7 @@ const RegisterComponent = () => {
       console.log(response.data);
 
       if (response.status === 201) {
-        setMessage("✅ Registration Successful! Redirecting to Login...");
+        setMessage(" Registration Successfull! Redirecting to Login...");
         setTimeout(() => navigator("/login"), 2000);
       } else {
         setMessage(response.data.message || "⚠️ Registration failed.");
