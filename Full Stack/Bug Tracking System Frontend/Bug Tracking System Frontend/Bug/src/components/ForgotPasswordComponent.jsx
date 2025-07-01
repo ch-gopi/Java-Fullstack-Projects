@@ -11,19 +11,19 @@ const ForgotPasswordComponent = () => {
 
     function handleSendEmail(e) {
         e.preventDefault();
-        setMessage('✅ Mock: Verification OTP sent to email.');
+        setMessage(' Mock: Verification OTP sent to email.');
         setStep(2); 
     }
 
     function handleVerifyOTP(e) {
         e.preventDefault();
-        setMessage('✅ Mock: OTP verified! Proceed to reset password.');
+        setMessage(' Mock: OTP verified! Proceed to reset password.');
         setStep(3); 
     }
 
     function handleResetPassword(e) {
         e.preventDefault();
-        setMessage('✅ Mock: Password reset successful! Redirecting...');
+        setMessage(' Mock: Password reset successful! Redirecting...');
         setTimeout(() => navigator("/login"), 2000);
     }
 
