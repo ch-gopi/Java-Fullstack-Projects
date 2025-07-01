@@ -22,12 +22,12 @@ const LoginComponent = () => {
         const role = response.data.role;
         storeToken(token);
         saveLoggedInUser(username, role);
-        setMessage("✅ Login Successful! Redirecting...");
+        setMessage(" Login Successfull! Redirecting...");
         setTimeout(() => navigator("/home"), 2000);
       })
       .catch((error) => {
         console.error(error);
-        setMessage("❌ Incorrect login credentials. Please try again.");
+        setMessage(" Incorrect login credentials. Please try again.");
       });
   }
 
