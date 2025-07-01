@@ -95,7 +95,7 @@ const RegisterComponent = () => {
         {message && (
           <p
             style={{
-              color: message.includes("✅") ? "#28a745" : "#ff4d4d",
+              color: message.includes("") ? "#28a745" : "#ff4d4d",
               fontWeight: "bold",
               fontSize: "16px",
             }}
