@@ -51,7 +51,7 @@ public class Bug {
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER) //Directly previewable images on ui
     @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
     @Column(name = "image_path")
     private List<String> imagePaths = new ArrayList<>();
