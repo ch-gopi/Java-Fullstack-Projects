@@ -13,9 +13,9 @@
 }
 
 .thumbnail {
-    width: 50px; /* ✅ Adjust as needed */
+    width: 50px; /*  Adjust as needed */
     height: 50px;
-    object-fit: cover; /* ✅ Keeps aspect ratio */
+    object-fit: cover; /*  Keeps aspect ratio */
     border-radius: 5px;
     margin-right: 5px;
 }
@@ -32,7 +32,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* ✅ Dark overlay */
+    background: rgba(0, 0, 0, 0.8); /*  Dark overlay */
     display: flex;
     align-items: center;
     justify-content: center;
