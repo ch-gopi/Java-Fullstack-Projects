@@ -56,7 +56,7 @@ public class Bug {
     @Column(name = "image_path")
     private List<String> imagePaths = new ArrayList<>();
 
-    @OneToMany(mappedBy = "bug", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "bug",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<BugComment> comments;
 
