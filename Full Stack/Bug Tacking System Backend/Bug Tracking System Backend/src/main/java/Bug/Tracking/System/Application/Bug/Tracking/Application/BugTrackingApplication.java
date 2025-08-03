@@ -11,6 +11,12 @@ public class BugTrackingApplication {
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
+	@Bean
+	public ObjectMapper objectMapper() {
+	    return new ObjectMapper()
+	        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+	        .registerModule(new JavaTimeModule());
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(BugTrackingApplication.class, args);
