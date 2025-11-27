@@ -20,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "bugs")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Bug {
 
     @Id
@@ -61,3 +62,4 @@ public class Bug {
     private List<BugComment> comments;
 
 }
+
