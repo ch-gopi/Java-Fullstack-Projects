@@ -24,7 +24,7 @@ import java.util.List;
 public class Bug {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private Long id;
 
     @Column(nullable = false)
@@ -62,4 +62,5 @@ public class Bug {
     private List<BugComment> comments;
 
 }
+
 
