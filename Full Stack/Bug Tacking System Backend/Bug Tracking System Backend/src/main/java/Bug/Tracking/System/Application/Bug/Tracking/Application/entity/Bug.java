@@ -22,9 +22,9 @@ import java.util.List;
 @Table(name = "bugs")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Bug {
-
+    //Use UUID for not propagating errors to frontend and idempotency
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -47,9 +47,11 @@ public class Bug {
     private Severity severity;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "sprint_id")
+    @JsonIgnore
     private Sprint sprint;
 
     @ElementCollection(fetch = FetchType.EAGER) //Directly previewable images on ui
@@ -62,5 +64,6 @@ public class Bug {
     private List<BugComment> comments;
 
 }
+
 
 
