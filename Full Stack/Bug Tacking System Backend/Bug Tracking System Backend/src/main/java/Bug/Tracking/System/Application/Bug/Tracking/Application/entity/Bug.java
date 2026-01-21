@@ -54,7 +54,7 @@ public class Bug {
     @JsonIgnore
     private Sprint sprint;
 
-    @ElementCollection(fetch = FetchType.EAGER) //Directly previewable images on ui
+    @ElementCollection(fetch = FetchType.LAZY) //Directly previewable images on ui
     @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
     @Column(name = "image_path")
     private List<String> imagePaths = new ArrayList<>();
@@ -64,6 +64,7 @@ public class Bug {
     private List<BugComment> comments;
 
 }
+
 
 
 
