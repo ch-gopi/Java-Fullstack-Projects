@@ -45,7 +45,7 @@ public class Bug {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Severity severity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
@@ -64,6 +64,7 @@ public class Bug {
     private List<BugComment> comments;
 
 }
+
 
 
 
