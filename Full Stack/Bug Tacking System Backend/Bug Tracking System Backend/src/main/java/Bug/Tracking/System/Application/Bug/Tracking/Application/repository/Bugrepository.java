@@ -15,10 +15,13 @@ public interface Bugrepository extends JpaRepository<Bug, Long>,JpaSpecification
     long countBySeverity(Severity critical);
 
     long countByCompleted(boolean b);
+    @EntityGraph(attributePaths = {"user", "sprint"})
     Page<Bug> findAll(Pageable pageable);
 
-
+    @EntityGraph(attributePaths = {"user", "sprint"})
     List<Bug> findBySprintId(Long sprintId);
+    @EntityGraph(attributePaths = {"user", "sprint"})
     List<Bug> findAll(Specification<Bug> spec);
 
 }
+
