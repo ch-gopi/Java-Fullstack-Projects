@@ -45,25 +45,28 @@ public class Bug {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Severity severity;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "sprint_id")
-    @JsonIgnore
-    private Sprint sprint;
+   @ManyToOne(fetch = FetchType.EAGER)  
+@JoinColumn(name = "user_id", nullable = false)
+@JsonIgnore
+private User user;
 
-    @ElementCollection(fetch = FetchType.LAZY) //Directly previewable images on ui
-    @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
-    @Column(name = "image_path")
-    private List<String> imagePaths = new ArrayList<>();
+@ManyToOne(fetch = FetchType.EAGER)  
+@JoinColumn(name = "sprint_id")
+@JsonIgnore
+private Sprint sprint;
 
-    @OneToMany(mappedBy = "bug",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<BugComment> comments;
+@ElementCollection(fetch = FetchType.EAGER)  
+@CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
+@Column(name = "image_path")
+private List<String> imagePaths = new ArrayList<>();
+
+@OneToMany(mappedBy = "bug", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) 
+@JsonIgnore
+private List<BugComment> comments;
+
 
 }
+
 
 
 
