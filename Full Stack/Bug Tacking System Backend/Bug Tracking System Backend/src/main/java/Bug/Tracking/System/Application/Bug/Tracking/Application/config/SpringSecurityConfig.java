@@ -28,13 +28,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Configuration
 @EnableMethodSecurity
 @AllArgsConstructor
-public class SpringSecurityConfig {
+public class SpringSecurityConfig  extends AbstractSecurityConfig {
 
     private UserDetailsService userDetailsService;
 
     private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
     private JwtAuthenticationFilter authenticationFilter;
+    @Override
+protected AuthenticationEntryPointStrategy authenticationEntryPoint() {
+    return authenticationEntryPoint; // JwtAuthenticationEntryPoint implements AuthenticationEntryPointStrategy
+}
+
+@Override
+protected AuthenticationFilterStrategy authenticationFilter() {
+    return (AuthenticationFilterStrategy)  authenticationFilter; // JwtAuthenticationFilter implements AuthenticationFilterStrategy
+}
+
 
     @Bean
     public static PasswordEncoder passwordEncoder(){
