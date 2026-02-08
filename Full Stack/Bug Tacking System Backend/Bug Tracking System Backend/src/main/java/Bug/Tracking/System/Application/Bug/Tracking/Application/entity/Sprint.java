@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
 
 import jakarta.persistence.*;
@@ -27,3 +28,34 @@ public class Sprint {
 
 
 }
+=======
+package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
+@Table(name = "Sprint")
+@Entity
+public class Sprint {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String sprintName;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+
+}
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd

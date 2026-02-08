@@ -16,7 +16,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+<<<<<<< HEAD
 import org.springframework.security.web.AuthenticationEntryPoint;
+=======
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.core.userdetails.User;
@@ -60,7 +63,11 @@ public class SpringSecurityConfig {
                 }).httpBasic(Customizer.withDefaults());
 
         http.exceptionHandling( exception -> exception
+<<<<<<< HEAD
                 .authenticationEntryPoint((AuthenticationEntryPoint) authenticationEntryPoint));
+=======
+                .authenticationEntryPoint(authenticationEntryPoint));
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

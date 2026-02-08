@@ -9,7 +9,11 @@ import Bug.Tracking.System.Application.Bug.Tracking.Application.exception.BugAPI
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.RoleRepository;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.repository.UserRepository;
 import Bug.Tracking.System.Application.Bug.Tracking.Application.security.JwtTokenProvider;
+<<<<<<< HEAD
 import Bug.Tracking.System.Application.Bug.Tracking.Application.service.AuthInterfaceService;
+=======
+import Bug.Tracking.System.Application.Bug.Tracking.Application.service.AuthService;
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +30,11 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
+<<<<<<< HEAD
 public class AuthServiceImpl implements AuthInterfaceService {
+=======
+public class AuthServiceImpl implements AuthService {
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;

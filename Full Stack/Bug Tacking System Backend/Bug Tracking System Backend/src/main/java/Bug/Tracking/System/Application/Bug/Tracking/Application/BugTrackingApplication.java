@@ -1,8 +1,11 @@
 package Bug.Tracking.System.Application.Bug.Tracking.Application;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+=======
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

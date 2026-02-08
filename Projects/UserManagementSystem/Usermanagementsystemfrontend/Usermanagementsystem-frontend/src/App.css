@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .footer{
     position:fixed;
     bottom:0;
@@ -7,4 +8,15 @@
     text-align: center;
     color: white;
 
+=======
+.footer{
+    position:fixed;
+    bottom:0;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    text-align: center;
+    color: white;
+
+>>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 }
