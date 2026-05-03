@@ -67,31 +67,6 @@ private List<String> imagePaths = new ArrayList<>();
 @JsonIgnore
 private List<BugComment> comments;
 
-
-}
-
-
-
-
-
-
-=======
-
-package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
-
-import Bug.Tracking.System.Application.Bug.Tracking.Application.Enums.Severity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -142,12 +117,26 @@ private List<String> imagePaths = new ArrayList<>();
 @JsonIgnore
 private List<BugComment> comments;
 
+@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Bug)) return false;
+    Bug bug = (Bug) o;
+    return id != null && id.equals(bug.id);
+}
+
+@Override
+public int hashCode() {
+    return Objects.hashCode(id);
+}
 
 }
 
 
 
 
+}
 
 
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
+
+
