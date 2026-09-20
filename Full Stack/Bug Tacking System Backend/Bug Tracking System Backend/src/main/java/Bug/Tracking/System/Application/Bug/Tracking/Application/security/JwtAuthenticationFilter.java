@@ -1,9 +1,6 @@
 package Bug.Tracking.System.Application.Bug.Tracking.Application.security;
 
-<<<<<<< HEAD
-import Bug.Tracking.System.Application.Bug.Tracking.Application.config.AuthenticationEntryPointStrategy;
-=======
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
+import Bug.Tracking.System.Application.Bug.Tracking.Application.config.AuthenticationFilterStrategy;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,11 +20,7 @@ import java.io.IOException;
 // Execute Before Executing Spring Security Filters
 // Validate the JWT Token and Provides user details to Spring Security for Authentication
 @Component
-<<<<<<< HEAD
-public class JwtAuthenticationFilter extends OncePerRequestFilter implements AuthenticationEntryPointStrategy ,IJwtAuthenticationFilter{
-=======
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
+public class JwtAuthenticationFilter extends OncePerRequestFilter implements AuthenticationFilterStrategy {
 
     private JwtTokenProvider jwtTokenProvider;
 
@@ -39,11 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-<<<<<<< HEAD
-    public void doFilterInternal(HttpServletRequest request,
-=======
     protected void doFilterInternal(HttpServletRequest request,
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
