@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package Bug.Tracking.System.Application.Bug.Tracking.Application.entity;
 
 import jakarta.persistence.*;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-java.util.Objects;
+import java.util.Objects;
 
 @Getter
 @Setter
