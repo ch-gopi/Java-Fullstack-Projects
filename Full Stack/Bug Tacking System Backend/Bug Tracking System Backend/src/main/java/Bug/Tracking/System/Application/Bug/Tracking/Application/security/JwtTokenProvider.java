@@ -3,30 +3,20 @@ package Bug.Tracking.System.Application.Bug.Tracking.Application.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-<<<<<<< HEAD
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-=======
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 import java.security.Key;
 import java.util.Date;
 
 @Component
-<<<<<<< HEAD
 public class JwtTokenProvider extends JwtAuthenticationEntryPoint implements IJwtTokenProvider,IJwtAuthenticationFilter {
-=======
-public class JwtTokenProvider {
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 
     @Value("${app.jwt-secret}")
     private String jwtSecret;
@@ -80,11 +70,8 @@ public class JwtTokenProvider {
         return true;
     }
 
-<<<<<<< HEAD
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
     }
-=======
->>>>>>> 7597e7e0eba66a899deb947e73815869450259fd
 }
