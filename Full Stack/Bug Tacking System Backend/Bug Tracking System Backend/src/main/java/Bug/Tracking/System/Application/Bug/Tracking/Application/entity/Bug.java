@@ -48,22 +48,22 @@ public class Bug {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Severity severity;
-   @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.LAZY)
 @JoinColumn(name = "user_id", nullable = false)
 @JsonIgnore
 private User user;
 
-@ManyToOne(fetch = FetchType.EAGER)
+@ManyToOne(fetch = FetchType.LAZY)
 @JoinColumn(name = "sprint_id")
 @JsonIgnore
 private Sprint sprint;
 
-@ElementCollection(fetch = FetchType.EAGER)
+@ElementCollection(fetch = FetchType.LAZY)
 @CollectionTable(name = "bug_images", joinColumns = @JoinColumn(name = "bug_id"))
 @Column(name = "image_path")
 private List<String> imagePaths = new ArrayList<>();
 
-@OneToMany(mappedBy = "bug", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+@OneToMany(mappedBy = "bug", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 @JsonIgnore
 private List<BugComment> comments;
 
